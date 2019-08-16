@@ -21,7 +21,7 @@
 @endforeach
 
     <div class="row list-group-item">
-        <form method="POST" action="{{$page->id}}/receiveNote">
+        <form method="POST" action="{{$id}}/receiveNote">
             {{ csrf_field() }}
             <div class="input-group">
                 <input type="text" name="newNote" value="{{ old('newNote') }}"  class="form-control" placeholder="Add Note . . .">

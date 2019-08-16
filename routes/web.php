@@ -16,9 +16,9 @@ Route::get('/', function () {
 });
 
 Route::get('table','PageCon@show');
-Route::get('table/{page}','PageCon@onePagey');
+Route::get('table/{id}','PageCon@onePagey');
 
-Route::post('table/{page}/receiveNote','NoteCon@recNote');
+Route::post('table/{id}/receiveNote','NoteCon@recNote');
 Route::get('table/{page}/note-del','NoteCon@delNote');
 
 Route::post('notes/{note}/update','NoteCon@update');
