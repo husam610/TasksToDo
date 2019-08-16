@@ -10,9 +10,9 @@ use App\Page;
 
 class NoteCon extends Controller
 {
-    public function recNote(Request $request, Page $page)
+    public function recNote(Page $id)
    {
-     $validatedData = $request->validate([
+     $validatedData = request()->validate([
           'newNote' => 'required | min:3',
           
      ],[
@@ -21,8 +21,8 @@ class NoteCon extends Controller
      ]);
 
      $note =new Note;
-     $note-> text = $request->newNote;
-     $page->notes()->save($note);
+     $note-> text = request('newNote');
+     $id->notes()->save($note);
      return back();
    }
 

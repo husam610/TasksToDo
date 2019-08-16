@@ -11,26 +11,27 @@ class PageCon extends Controller
 {
    public function show()
    {
-       $varPage = DB::table('pages')->get();
+       $varPage = Page::all();
        return view('pages.showPage', compact('varPage'));
    }
 
-   public function onePagey(Page $page)
+   public function onePagey($id)
    {
-        $notes = Page::find($page->id)->notes;
-        return view('pages.onePage', compact('notes','page'));
+        $notes = Page::find($id)->notes;
+        return view('pages.onePage', compact('notes','id'));
    }
 
-   public function recPag(Request $request)
+   public function recPag()
    {
-    $validatedData = $request->validate([
+    $validatedData = request()->validate([
         'title' => 'required | min:2',
         
     ]);
-            $page = new Page;
-            $page-> title = $request->title;
-            $page-> save();
-            return back();
+        Page::create(request()->all());
+        // $page = new Page;
+        // $page-> title = request('title');
+        // $page-> save();
+        return back();
        
    }
 
