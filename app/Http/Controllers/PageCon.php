@@ -18,19 +18,34 @@ class PageCon extends Controller
    public function onePagey($id)
    {
         $notes = Page::find($id)->notes;
-        return view('pages.onePage', compact('notes','id'));
+        $imgPage = Page::find($id)->url;
+        return view('pages.onePage', compact('notes','id','imgPage'));
    }
 
-   public function recPag()
+   public function recPag(Request $request)
    {
     $validatedData = request()->validate([
         'title' => 'required | min:2',
+        'url' => 'image| max:2048 | mimes:jpg,bmp,jpeg,png,gif',
         
     ]);
-        Page::create(request()->all());
-        // $page = new Page;
-        // $page-> title = request('title');
-        // $page-> save();
+        if($request->url)
+        {
+        //giveing new name (the time + the suffix 'لاحقة الملف')
+        $imgName = time(). '.' . $request->url->getClientOriginalExtension(); 
+
+        //send the img to the project data
+        $request->url->move(public_path('up_load'), $imgName);
+        }
+        //add the data to the table
+        $page = new Page;
+        $page-> title = request('title');
+        $request->url? $page-> url = $imgName : null;
+        $page-> save();
+
+        // this is another way to add data in the table
+        //Page::create(request()->all());
+
         return back();
        
    }
