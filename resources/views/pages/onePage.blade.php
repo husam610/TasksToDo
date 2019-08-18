@@ -2,22 +2,21 @@
 
 @section('test_content')
 
-    <span><a href="../table">Back to ages List</a></span><br>
-
-
-
+<span><a href="../table">Back to ages List</a></span><br>
+@if($imgPage)
+    <img src="/up_load/{{$imgPage}}" alt="aaa">
+@endif
 <br>
 @foreach($notes as $notex)
-<div class="row list-group-item page-title-list">
-    <div class="col-xs-8">
-        {{$notex->text}}
-    </div>
-    <div class="col-xs-4">
-        <a class="btn btn-danger pull-right" href="/table/{{$notex->id}}/note-del">Delete</a>
-        <a class="btn btn-default pull-right" href="../notes/{{$notex->id}}/edit">Edit</a>
-    </div>
+    <div class="row list-group-item page-title-list">
+        <div class="col-xs-8">
+            {{$notex->text}}
+        </div>
+        <div class="col-xs-4">
+            <a class="btn btn-danger pull-right" href="/table/{{$notex->id}}/note-del">Delete</a>
+            <a class="btn btn-default pull-right" href="../notes/{{$notex->id}}/edit">Edit</a>
+        </div>
 </div>
-
 @endforeach
 
     <div class="row list-group-item">
