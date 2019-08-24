@@ -31,19 +31,19 @@ class PageCon extends Controller
     ]);
         if($request->url)
         {
-        //giveing new name (the time + the suffix 'لاحقة الملف')
+        //giveing new name (the time + the suffix 'لاحقة الملف'):
         $imgName = time(). '.' . $request->url->getClientOriginalExtension(); 
 
-        //send the img to the project data
+        //send the img to the project data:
         $request->url->move(public_path('up_load'), $imgName);
         }
-        //add the data to the table
+        //add the data to the table:
         $page = new Page;
         $page-> title = request('title');
         $request->url? $page-> url = $imgName : null;
         $page-> save();
 
-        // this is another way to add data in the table
+        // this is another way to add data in the table:
         //Page::create(request()->all());
 
         return back();
@@ -58,6 +58,9 @@ class PageCon extends Controller
        }
        else
        {
+        //to delete the image from database and folder:
+        $url = 'up_load/'.$pagex->url;
+        unlink($url);
         $pagex-> delete();
         return back(); 
        }
@@ -67,6 +70,8 @@ class PageCon extends Controller
    public function delall(Page $pagex)
    {
         DB::table('notes')->where('page_id', '=', $pagex->id)->delete();
+        $url = 'up_load/'.$pagex->url;
+        unlink($url);
         $pagex-> delete();
         return redirect('../../table');
     }
